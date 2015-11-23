@@ -1,0 +1,22 @@
+<ion-view title="Signup">
+    <ion-content padding="'true'" scroll="false" class="has-header">
+       <form class="list" ng-submit="getSignUp()">
+            <label class="item item-input">
+                <input type="text" placeholder="USERNAME (eg: letters123)" ng-model="signup.username">
+            </label>
+            <ion-list>
+                <label class="item item-input">
+                    <input type="text" placeholder="EMAIL" ng-model="signup.email">
+                </label>
+                <label class="item item-input">
+                    <input type="password" placeholder="PASSWORD" ng-model="signup.password">
+                </label>
+            </ion-list>
+            <label class="item item-input">
+                <input type="password" placeholder="RE-TYPE PASSWORD" ng-model="signup.retype">
+            </label>
+            <div class="spacer" style="width: 300px; height: 53px;"></div>
+            <button class="button button-balanced button-block ">Sign up</button>
+        </form>
+    </ion-content>
+</ion-view>
