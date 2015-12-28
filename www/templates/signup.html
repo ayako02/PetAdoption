@@ -1,24 +1,27 @@
 <ion-view title="Signup">
     <ion-content padding="'true'" scroll="false" class="has-header">
        <form class="list" ng-submit="getSignUp()" name="SignUpForm">
+
             <label class="item item-input">
-                <input type="text" placeholder="USERNAME (eg: letters123)" ng-model="signup.username">
+                <input type="text" placeholder="Username (eg: letters123)" ng-model="signup.username" 
+                required ng-minlength="5" ng-maxlength="10">
             </label>
             <ion-list>
                 <label class="item item-input">
-                    <input type="text" placeholder="EMAIL" ng-model="signup.email">
+                    <input type="text" placeholder="EMAIL" ng-model="signup.email" required>
                 </label>
                 <label class="item item-input">
-                    <input type="password" placeholder="PASSWORD" ng-model="signup.password">
+                    <input type="password" placeholder="PASSWORD" ng-model="signup.password" 
+                    required ng-minlength="5" ng-maxlength="10">
                 </label>
             </ion-list>
             <label class="item item-input">
                 <input type="password" placeholder="RE-TYPE PASSWORD" 
-                ng-model="signup.retype" match="signup.password" name="ConfirmField">
+                ng-model="signup.retype" match="signup.password" name="ConfirmField" required>
             </label>
-            <div ng-show="SignUpForm.ConfirmField.$error.match">Password does not match</div>
-            <div class="spacer" style="width: 300px; height: 53px;"></div>
-            <button class="button button-balanced button-block ">Sign up</button>
+            <div ng-show="SignUpForm.ConfirmField.$error.match" 
+               class="button button-block button-assertive button-clear">Password does not match</div>
+            <button class="button button-balanced button-block">Sign up</button>
         </form>
     </ion-content>
 </ion-view>

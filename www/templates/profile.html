@@ -1,9 +1,59 @@
 <ion-view title="Profile">
+     <ion-nav-buttons side="left">
+      <button class="button" ng-click="openPopover($event)">
+        <i class="icon ion-ios-more"></i>
+      </button>
+    </ion-nav-buttons>
     <ion-content padding="'true'" class="has-header">
         <div style="line-height: 250px; border: 1px solid rgb(238, 238, 238); border-radius: 3px; text-align: center; width: 100%; height: auto; background-color: rgb(255, 255, 255);">
             <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
         </div>
         <h3>Username</h3>
         <button class="button button-balanced button-block button-small">+FOLLOW</button>
+
+        <div class="list class">
+
+            <div class="item item-divider">
+                Puppy
+            </div>
+
+            <div class="item item-class">
+                <img src="">
+            </div>
+
+             <div class="item item-text-wrap">
+             boxer, age 8
+            </div>
+        </div>
     </ion-content>
 </ion-view>
+
+<script id="popover.html" type="text/ng-template">
+  <ion-popover-view style="height:120px">
+    <ion-header-bar>
+      <h1 class="title">Menu</h1>
+    </ion-header-bar>
+    <ion-content>
+    <ul class="list">
+        <li class="item">
+            <a ng-click="logout()" style="color:red"> Log out </a>
+        </li>
+    </ul>
+    </ion-content>
+  </ion-popover-view>
+</script>
+
+<script id="popover.html" type="text/ng-template">
+  <ion-popover-view style="height:120px">
+    <ion-header-bar>
+      <h1 class="title">Menu</h1>
+    </ion-header-bar>
+    <ion-content>
+    <ul class="list">
+        <li class="item">
+            <a ng-click="logout()" style="color:red"> Log out </a>
+        </li>
+    </ul>
+    </ion-content>
+  </ion-popover-view>
+</script>
