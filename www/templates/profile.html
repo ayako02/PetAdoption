@@ -8,22 +8,27 @@
         <div style="line-height: 250px; border: 1px solid rgb(238, 238, 238); border-radius: 3px; text-align: center; width: 100%; height: auto; background-color: rgb(255, 255, 255);">
             <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
         </div>
-        <h3>Username</h3>
+        <h3>{{name}}</h3>
         <button class="button button-balanced button-block button-small">+FOLLOW</button>
 
-        <div class="list class">
+        <div class="list card" ng-repeat="x in UserPost">
 
-            <div class="item item-divider">
-                Puppy
-            </div>
+          <div class="item item-avatar">
+            <img src="">
+            <h2>{{x.PetName}}</h2>
+            <p>{{x.breed}}, {{x.age}}, {{x.gender}}</p>
+          </div>
 
-            <div class="item item-class">
-                <img src="">
-            </div>
+          <div class="item item-image">
+            <img src="">
+          </div>
 
-             <div class="item item-text-wrap">
-             boxer, age 8
-            </div>
+          <a class="item item-icon-left assertive" href="#">
+            <i class="icon ion-ios-location"></i>
+            {{x.location}}
+          </a>
+
+        </div>
         </div>
     </ion-content>
 </ion-view>

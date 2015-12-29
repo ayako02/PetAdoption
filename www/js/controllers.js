@@ -1,5 +1,6 @@
 angular.module('app.controllers', [])
    
+
 .controller('login2Ctrl', function($scope, $state) {
     $scope.login = {};
      
@@ -44,16 +45,18 @@ angular.module('app.controllers', [])
     $scope.status = [];
     var NewStatus = Parse.Object.extend("NewStatus");
     var query = new Parse.Query(NewStatus);
+    query.descending("createdAt");
+
     query.find({
       success: function(results) {
         for (var i = 0; i < results.length; i++) {
           object = results[i];
-          console.log(object.id + ' - ' + object.get('PetName'));
           $scope.status[i] = {
               PetName: object.get('PetName'),
-              breed: object.get('breed'),
-              gender: object.get('gender'),
-              Location: object.get('Location'),
+              age: object.get('Age'),
+              breed: object.get('Breed'),
+              gender: object.get('Gender'),
+              location: object.get('Location'),
           }
         }
         window.localStorage['status'] = JSON.stringify($scope.status);
@@ -75,21 +78,19 @@ angular.module('app.controllers', [])
     $scope.getNewStatus = function() {
       var NewStatus = Parse.Object.extend("NewStatus");
       var status = new NewStatus();
-
+      
+      status.set("User", Parse.User.current());
       status.set("PetName", $scope.status.petname);
-//       status.set("Age", 1);
-      status.set("breed", $scope.status.breed);
-      status.set("gender", $scope.status.gender);
-      status.set("location", $scope.status.location);
+      status.set("Age", $scope.status.age);
+      status.set("Breed", $scope.status.breed);
+      status.set("Gender", $scope.status.gender);
+      status.set("Location", $scope.status.location);
 
       status.save(null, {
         success: function(gameScore) {
-        // Execute any logic that should take place after the object is saved.
         alert('New object created with objectId: ' + gameScore.id);
         },
      error: function(gameScore, error) {
-        // Execute any logic that should take place if the save fails.
-        // error is a Parse.Error with an error code and message.
         alert('Failed to create new object, with error code: ' + error.message);
         }
       });
@@ -102,6 +103,10 @@ angular.module('app.controllers', [])
 })
 
 .controller('profileCtrl', function($scope, $state,$ionicPopover) {
+    
+    //get username
+    var user = Parse.User.current();
+    $scope.name = user.get("username");
     //popover-menu function
     $ionicPopover.fromTemplateUrl('popover.html', {
       scope: $scope
@@ -128,6 +133,35 @@ angular.module('app.controllers', [])
         $scope.closePopover();
         window.localStorage.clear();
     }
+
+    //Post submitted by user
+    $scope.UserPost = [];
+    var NewStatus = Parse.Object.extend("NewStatus");
+    var query = new Parse.Query(NewStatus);
+   
+    query.descending("createdAt");
+    query.equalTo("User", Parse.User.current());
+   
+    query.find({
+      success: function(results) {
+        for (var i = 0; i < results.length; i++) {
+          object = results[i];
+          $scope.UserPost[i] = {
+              PetName: object.get('PetName'),
+              age: object.get('Age'),
+              breed: object.get('Breed'),
+              gender: object.get('Gender'),
+              location: object.get('Location'),
+          }
+        }
+        window.localStorage['UserPost'] = JSON.stringify($scope.UserPost);
+      },
+      error: function(error) {
+        alert("Error: " + error.code + " " + error.message);
+      }
+    });
+    $scope.UserPost = JSON.parse(window.localStorage['UserPost']);
+    console.log($scope.UserPost);
 })
 
 

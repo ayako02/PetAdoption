@@ -5,6 +5,8 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
+Parse.initialize("0HiCJHUMxSZ0AWAojk91tyaVGtOGVWVUPh8oKcDB", "UuTBA1sKn3EwxgvqaocECfQyTpeMsNgWG3VbmKfs");
+
 angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'validation.match'])
 
 .run(function($ionicPlatform) {
@@ -18,6 +20,5 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-    Parse.initialize("0HiCJHUMxSZ0AWAojk91tyaVGtOGVWVUPh8oKcDB", "UuTBA1sKn3EwxgvqaocECfQyTpeMsNgWG3VbmKfs");
   });
 })

@@ -1,5 +1,23 @@
 <ion-view title="Home">
     <ion-content padding="'true'" class="has-header">
-    {{status}}
+<!--     {{status}} -->
+    <div class="list card" ng-repeat="x in status">
+
+      <div class="item item-avatar">
+        <img src="">
+        <h2>{{x.PetName}}</h2>
+        <p>{{x.breed}} , {{x.age}}</p>
+      </div>
+
+      <div class="item item-image">
+        <img src="">
+      </div>
+
+      <a class="item item-icon-left assertive" href="#">
+        <i class="icon ion-ios-location"></i>
+        {{x.location}}
+      </a>
+
+    </div>
     </ion-content>
 </ion-view>
