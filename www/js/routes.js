@@ -13,19 +13,13 @@ angular.module('app.routes', [])
       templateUrl: 'templates/login2.html',
       controller: 'login2Ctrl'
     })
-        
-      
     
-      
         
     .state('signup', {
       url: '/signup',
       templateUrl: 'templates/signup.html',
       controller: 'signupCtrl'
     })
-        
-      
-    
       
         
     .state('tabsController.home', {
@@ -37,11 +31,7 @@ angular.module('app.routes', [])
         }
       }
     })
-        
-      
-    
-      
-        
+
     .state('tabsController.search', {
       url: '/search',
       views: {
@@ -51,13 +41,10 @@ angular.module('app.routes', [])
         }
       }
     })
-        
-      
-    
       
         
     .state('tabsController.newStatus', {
-      url: '/page10',
+      url: '/newStatus',
       views: {
         'tab12': {
           templateUrl: 'templates/newStatus.html',
@@ -66,33 +53,7 @@ angular.module('app.routes', [])
       }
     })
         
-      
-    
-      
-    .state('tabsController', {
-      url: '/page7',
-      abstract:true,
-      templateUrl: 'templates/tabsController.html'
-    })
-      
-    
-      
-        
-    .state('tabsController.notification', {
-      url: '/notification',
-      views: {
-        'tab13': {
-          templateUrl: 'templates/notification.html',
-          controller: 'notificationCtrl'
-        }
-      }
-    })
-        
-      
-    
-      
-        
-    .state('tabsController.profile', {
+       .state('tabsController.profile', {
       url: '/profile',
       views: {
         'tab14': {
@@ -101,6 +62,16 @@ angular.module('app.routes', [])
         }
       }
     })
+    
+      
+    .state('tabsController', {
+      url: '/page7',
+      abstract:true,
+      templateUrl: 'templates/tabsController.html'
+    })
+      
+        
+   
         
       
     ;

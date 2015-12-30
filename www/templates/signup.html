@@ -1,6 +1,6 @@
 <ion-view title="Signup">
     <ion-content padding="'true'" scroll="false" class="has-header">
-       <form class="list" ng-submit="getSignUp()" name="SignUpForm">
+       <form class="list list-insert" ng-submit="getSignUp()" name="SignUpForm">
 
             <label class="item item-input">
                 <input type="text" placeholder="Username (eg: letters123)" ng-model="signup.username" 
@@ -8,7 +8,7 @@
             </label>
             <ion-list>
                 <label class="item item-input">
-                    <input type="text" placeholder="EMAIL" ng-model="signup.email" required>
+                    <input type="email" placeholder="EMAIL" ng-model="signup.email" required>
                 </label>
                 <label class="item item-input">
                     <input type="password" placeholder="PASSWORD" ng-model="signup.password" 
@@ -21,7 +21,7 @@
             </label>
             <div ng-show="SignUpForm.ConfirmField.$error.match" 
                class="button button-block button-assertive button-clear">Password does not match</div>
-            <button class="button button-balanced button-block">Sign up</button>
+            <button class="button button-calm button-block">Sign up</button>
         </form>
     </ion-content>
 </ion-view>

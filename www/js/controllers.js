@@ -56,6 +56,7 @@ angular.module('app.controllers', [])
               breed: object.get('Breed'),
               gender: object.get('Gender'),
               location: object.get('Location'),
+              image: "data:image/jpeg;base64,"+object.get('Image'),
           }
         }
         window.localStorage['status'] = JSON.stringify($scope.status);
@@ -64,7 +65,11 @@ angular.module('app.controllers', [])
         alert("Error: " + error.code + " " + error.message);
       }
     });
-    $scope.status = JSON.parse(window.localStorage['status']);
+
+    if(window.localStorage['status'])
+        $scope.status = JSON.parse(window.localStorage['status']);
+
+     
 })
    
 .controller('searchCtrl', function($scope, $state) {
@@ -73,6 +78,8 @@ angular.module('app.controllers', [])
    
 .controller('newStatusCtrl', function($scope, $cordovaCamera) {
     $scope.status = {};
+    
+    var newImage;
 
     $scope.getNewStatus = function() {
       var NewStatus = Parse.Object.extend("NewStatus");
@@ -84,6 +91,7 @@ angular.module('app.controllers', [])
       status.set("Breed", $scope.status.breed);
       status.set("Gender", $scope.status.gender);
       status.set("Location", $scope.status.location);
+      status.set("Image", newImage);
 
       status.save(null, {
         success: function(gameScore) {
@@ -97,7 +105,7 @@ angular.module('app.controllers', [])
 
      //camera function
      $scope.useCamera = function(){
-         
+
         var options = {
           quality: 100,
           destinationType: Camera.DestinationType.DATA_URL,
@@ -114,6 +122,7 @@ angular.module('app.controllers', [])
         $cordovaCamera.getPicture(options).then(function(imageData) {
           var image = document.getElementById('myImage');
           image.src = "data:image/jpeg;base64," + imageData;
+          newImage = imageData;
         }, function(err) {
           // error
         });
@@ -121,11 +130,6 @@ angular.module('app.controllers', [])
      };
      
 
-})
-      
-.controller('notificationCtrl', function($scope, $state) {
-   
-    
 })
 
 .controller('profileCtrl', function($scope, $state,$ionicPopover) {
@@ -186,8 +190,8 @@ angular.module('app.controllers', [])
         alert("Error: " + error.code + " " + error.message);
       }
     });
-    $scope.UserPost = JSON.parse(window.localStorage['UserPost']);
-    console.log($scope.UserPost);
+    if (window.localStorage['UserPost'])
+        $scope.UserPost = JSON.parse(window.localStorage['UserPost']);
 })
 
 
