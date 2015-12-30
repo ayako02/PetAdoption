@@ -7,7 +7,8 @@
 // 'starter.controllers' is found in controllers.js
 Parse.initialize("0HiCJHUMxSZ0AWAojk91tyaVGtOGVWVUPh8oKcDB", "UuTBA1sKn3EwxgvqaocECfQyTpeMsNgWG3VbmKfs");
 
-angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'validation.match'])
+angular.module('app', ['ionic', 'app.controllers', 'app.routes', 
+'app.services', 'app.directives', 'validation.match', 'ngCordova'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

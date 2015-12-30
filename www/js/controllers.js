@@ -20,7 +20,6 @@ angular.module('app.controllers', [])
     $scope.signup = {};
     
     $scope.getSignUp = function() {
-        console.log($scope.signup);
         var user = new Parse.User();
         user.set("username", $scope.signup.username);
         user.set("email", $scope.signup.email);
@@ -72,7 +71,7 @@ angular.module('app.controllers', [])
     
 })
    
-.controller('newStatusCtrl', function($scope) {
+.controller('newStatusCtrl', function($scope, $cordovaCamera) {
     $scope.status = {};
 
     $scope.getNewStatus = function() {
@@ -94,7 +93,34 @@ angular.module('app.controllers', [])
         alert('Failed to create new object, with error code: ' + error.message);
         }
       });
-    }
+    };
+
+     //camera function
+     $scope.useCamera = function(){
+         
+        var options = {
+          quality: 100,
+          destinationType: Camera.DestinationType.DATA_URL,
+          sourceType: Camera.PictureSourceType.CAMERA,
+          allowEdit: true,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 200,
+          targetHeight: 200,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: false,
+          correctOrientation:true
+        };
+
+        $cordovaCamera.getPicture(options).then(function(imageData) {
+          var image = document.getElementById('myImage');
+          image.src = "data:image/jpeg;base64," + imageData;
+        }, function(err) {
+          // error
+        });
+
+     };
+     
+
 })
       
 .controller('notificationCtrl', function($scope, $state) {

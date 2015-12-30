@@ -1,22 +1,26 @@
 <ion-view title="New Status">
     <ion-content padding="'true'" class="has-header">
-        <div style="line-height: 250px; border: 1px solid rgb(238, 238, 238); border-radius: 3px; text-align: center; width: 100%; height: auto; background-color: rgb(255, 255, 255);">
-            <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
-        </div>
+      
+            <img src="" id="myImage">
+            
+            <div class="button-bar">
+                <a class="button button-outline button-royal ion-camera" ng-click="useCamera()"></a>
+                <a class="button button-outline button-royal ion-images"></a>
+            </div>
+           
+
         <form class="list" ng-submit="getNewStatus()">
-
+           
             <label class="item item-input">
-                <div class="col col-67"> 
-                    <input type="text" placeholder="Pet's Name" ng-model="status.petname">
-                 </div>
-
-                <div class="col">
-                    <input type="text" placeholder="Age" ng-model="status.age">
-                </div>
+                <input type="text" placeholder="Pet's Name" ng-model="status.petname" required>
+            </label>
+             
+            <label class="item item-input">
+                <input type="text" placeholder="Age" ng-model="status.age">
             </label>
 
             <label class="item item-input">
-                <input type="text" placeholder="Breed" ng-model="status.breed"> 
+                <input type="text" placeholder="Breed" ng-model="status.breed" required> 
             </label>
 
             <div class="list">
@@ -26,14 +30,14 @@
                     Gender
                 </div>
                 <select ng-model="status.gender">
-                    <option selected>Male</option>
+                    <option>Male</option>
                     <option>Female</option>
                 </select>
             </label>
             </div>
 
             <label class="item item-input">
-                <input type="text" placeholder="Location" ng-model="status.location">
+                <input type="text" placeholder="Location" ng-model="status.location" required>
             </label>
 
             <button class="button button-outline button-royal button-block" type="submit">POST!</button>
