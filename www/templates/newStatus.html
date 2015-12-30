@@ -16,29 +16,57 @@
             </label>
              
             <label class="item item-input">
-                <input type="text" placeholder="Age" ng-model="status.age">
+                <input type="text" placeholder="Age     eg: 3 months old, 2 years old" 
+                ng-model="status.age">
             </label>
 
             <label class="item item-input">
-                <input type="text" placeholder="Breed" ng-model="status.breed" required> 
+                <input type="text" placeholder="Breed   eg: Labrador, Shih Tzu mix Poodle" 
+                ng-model="status.breed" required> 
             </label>
 
             <div class="list">
 
-            <label class="item item-input item-select">
-                <div class="input-label">
-                    Gender
-                </div>
-                <select ng-model="status.gender">
-                    <option>Male</option>
-                    <option>Female</option>
-                </select>
-            </label>
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        Gender
+                    </div>
+                    <select ng-model="status.gender" required>
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </label>
             </div>
-
+            
             <label class="item item-input">
-                <input type="text" placeholder="Location" ng-model="status.location" required>
+                <input type="text" placeholder="City    eg: Puchong, Tmn Midah" 
+                ng-model="status.city" required>
             </label>
+            
+            <div class="list">
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        State
+                    </div>
+                    <select ng-model="status.state" required>
+                        <option>Perlis</option>
+                        <option>Kedah</option>
+                        <option>Penang</option>
+                        <option>Kelantan</option>
+                        <option>Perak</option>
+                        <option>Terengganu</option>
+                        <option>Pahang</option>
+                        <option>Selongor</option>
+                        <option>Kuala Lumpur</option>
+                        <option>Negeri Sembilan</option>
+                        <option>Malacca</option>
+                        <option>Johor</option>
+                        <option>Sarawak</option>
+                        <option>Sabah</option>
+                        <option>Labuan</option>
+                    </select>
+                </label>
+            </div>
 
             <button class="button button-outline button-royal button-block" type="submit">POST!</button>
 

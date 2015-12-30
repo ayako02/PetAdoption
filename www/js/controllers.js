@@ -57,7 +57,8 @@ angular.module('app.controllers', [])
                   age: object.get('Age'),
                   breed: object.get('Breed'),
                   gender: object.get('Gender'),
-                  location: object.get('Location'),
+                  city: object.get('City'),
+                  state: object.get('State'),
                   image: "data:image/jpeg;base64,"+object.get('Image'),
               }
             }
@@ -74,10 +75,48 @@ angular.module('app.controllers', [])
             $scope.status = JSON.parse(window.localStorage['status']);
       };
 
-      $scope.getStatus();
+//       $scope.getStatus();
 })
    
 .controller('searchCtrl', function($scope, $state) {
+    $scope.search = {
+        value: "",
+    };
+    $scope.doSearch =  function() {
+        console.log("Search: "+$scope.search.value);
+        var NewStatus = Parse.Object.extend("NewStatus");
+        var query = new Parse.Query(NewStatus);
+         query.descending("createdAt");
+         query.equalTo("PetName", $scope.search.value);
+
+            query.find({
+              success: function(results) {
+                for (var i = 0; i < results.length; i++) {
+                  object = results[i];
+                  $scope.status[i] = {
+                      PetName: object.get('PetName'),
+                      age: object.get('Age'),
+                      breed: object.get('Breed'),
+                      gender: object.get('Gender'),
+                      city: object.get('City'),
+                      state: object.get('State'),
+                      image: "data:image/jpeg;base64,"+object.get('Image'),
+                  }
+                  console.log(object.get('Gender'));
+                }
+                console.log($scope.status);
+                window.localStorage['status'] = JSON.stringify($scope.status);
+                // stop the ion refresher
+                $scope.$broadcast('scroll.refreshComplete');
+              },
+              error: function(error) {
+                alert("Error: " + error.code + " " + error.message);
+              }
+            });
+
+            if(window.localStorage['status'])
+                $scope.status = JSON.parse(window.localStorage['status']);
+    };
     
 })
    
@@ -87,7 +126,7 @@ angular.module('app.controllers', [])
     var newImage;
 
     $scope.getNewStatus = function() {
-        if($scope.status.petname && $scope.status.location) {
+        if($scope.status.petname && $scope.status.city && $scope.status.state) {
             if(newImage) {
               var NewStatus = Parse.Object.extend("NewStatus");
               var status = new NewStatus();
@@ -97,7 +136,8 @@ angular.module('app.controllers', [])
               status.set("Age", $scope.status.age);
               status.set("Breed", $scope.status.breed);
               status.set("Gender", $scope.status.gender);
-              status.set("Location", $scope.status.location);
+              status.set("City", $scope.status.city);
+              status.set("State", $scope.status.state);
               status.set("Image", newImage);
 
               status.save(null, {
@@ -216,7 +256,8 @@ angular.module('app.controllers', [])
               age: object.get('Age'),
               breed: object.get('Breed'),
               gender: object.get('Gender'),
-              location: object.get('Location'),
+              city: object.get('City'),
+              state: object.get('State'),
               image: "data:image/jpeg;base64,"+object.get('Image'),
           }
         }
