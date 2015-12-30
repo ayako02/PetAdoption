@@ -82,25 +82,35 @@ angular.module('app.controllers', [])
     var newImage;
 
     $scope.getNewStatus = function() {
-      var NewStatus = Parse.Object.extend("NewStatus");
-      var status = new NewStatus();
-      
-      status.set("User", Parse.User.current());
-      status.set("PetName", $scope.status.petname);
-      status.set("Age", $scope.status.age);
-      status.set("Breed", $scope.status.breed);
-      status.set("Gender", $scope.status.gender);
-      status.set("Location", $scope.status.location);
-      status.set("Image", newImage);
+        if($scope.status.petname && $scope.status.location) {
+            if(newImage) {
+              var NewStatus = Parse.Object.extend("NewStatus");
+              var status = new NewStatus();
 
-      status.save(null, {
-        success: function(gameScore) {
-        alert('New object created with objectId: ' + gameScore.id);
-        },
-     error: function(gameScore, error) {
-        alert('Failed to create new object, with error code: ' + error.message);
-        }
-      });
+              status.set("User", Parse.User.current());
+              status.set("PetName", $scope.status.petname);
+              status.set("Age", $scope.status.age);
+              status.set("Breed", $scope.status.breed);
+              status.set("Gender", $scope.status.gender);
+              status.set("Location", $scope.status.location);
+              status.set("Image", newImage);
+
+              status.save(null, {
+                success: function(messaege) {
+                alert('Post successfully!');
+                $scope.status = {};
+                newImage = {};
+                },
+             error: function(message, error) {
+                alert('Failed to post!'+ error.message);
+                }
+              });
+             } else {
+                 alert('You must post a photo!');
+             }
+        } else {
+            alert('Please enter the PetName and Location');
+        }   
     };
 
      //camera function
@@ -137,6 +147,7 @@ angular.module('app.controllers', [])
     //get username
     var user = Parse.User.current();
     $scope.name = user.get("username");
+
     //popover-menu function
     $ionicPopover.fromTemplateUrl('popover.html', {
       scope: $scope
@@ -168,7 +179,7 @@ angular.module('app.controllers', [])
     $scope.UserPost = [];
     var NewStatus = Parse.Object.extend("NewStatus");
     var query = new Parse.Query(NewStatus);
-   
+
     query.descending("createdAt");
     query.equalTo("User", Parse.User.current());
    
@@ -182,6 +193,7 @@ angular.module('app.controllers', [])
               breed: object.get('Breed'),
               gender: object.get('Gender'),
               location: object.get('Location'),
+              image: "data:image/jpeg;base64,"+object.get('Image'),
           }
         }
         window.localStorage['UserPost'] = JSON.stringify($scope.UserPost);
