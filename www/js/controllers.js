@@ -76,7 +76,7 @@ angular.module('app.controllers', [])
     
 })
    
-.controller('newStatusCtrl', function($scope, $cordovaCamera) {
+.controller('newStatusCtrl', function($scope, $cordovaCamera, $cordovaImagePicker) {
     $scope.status = {};
     
     var newImage;
@@ -140,6 +140,28 @@ angular.module('app.controllers', [])
      };
      
 
+        //image picker function
+
+        $scope.pickPix = function(){
+         var options = {
+               maximumImagesCount: 1,
+               width: 800,
+               height: 800,
+               quality: 50
+              };
+
+          $cordovaImagePicker.getPictures(options)
+            .then(function (results) {
+                var image = document.getElementById('myImage');
+                image.src = results;
+                newImage = results;
+                alert(results);
+                console.log('Image URI: ' + results);
+                    
+                }, function(error) {
+                // error getting photos
+            });
+        };
 })
 
 .controller('profileCtrl', function($scope, $state,$ionicPopover) {
