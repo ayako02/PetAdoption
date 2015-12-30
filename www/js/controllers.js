@@ -40,36 +40,41 @@ angular.module('app.controllers', [])
     }
 })
    
-.controller('homeCtrl', function($scope, $state) {
-    $scope.status = [];
-    var NewStatus = Parse.Object.extend("NewStatus");
-    var query = new Parse.Query(NewStatus);
-    query.descending("createdAt");
+.controller('homeCtrl', function($scope, $state, $http) {
+      $scope.getStatus = function() {
+        //creates the news feed
+        $scope.status = [];
+        var NewStatus = Parse.Object.extend("NewStatus");
+        var query = new Parse.Query(NewStatus);
+        query.descending("createdAt");
 
-    query.find({
-      success: function(results) {
-        for (var i = 0; i < results.length; i++) {
-          object = results[i];
-          $scope.status[i] = {
-              PetName: object.get('PetName'),
-              age: object.get('Age'),
-              breed: object.get('Breed'),
-              gender: object.get('Gender'),
-              location: object.get('Location'),
-              image: "data:image/jpeg;base64,"+object.get('Image'),
+        query.find({
+          success: function(results) {
+            for (var i = 0; i < results.length; i++) {
+              object = results[i];
+              $scope.status[i] = {
+                  PetName: object.get('PetName'),
+                  age: object.get('Age'),
+                  breed: object.get('Breed'),
+                  gender: object.get('Gender'),
+                  location: object.get('Location'),
+                  image: "data:image/jpeg;base64,"+object.get('Image'),
+              }
+            }
+            window.localStorage['status'] = JSON.stringify($scope.status);
+            // stop the ion refresher
+            $scope.$broadcast('scroll.refreshComplete');
+          },
+          error: function(error) {
+            alert("Error: " + error.code + " " + error.message);
           }
-        }
-        window.localStorage['status'] = JSON.stringify($scope.status);
-      },
-      error: function(error) {
-        alert("Error: " + error.code + " " + error.message);
-      }
-    });
+        });
+         
+        if(window.localStorage['status'])
+            $scope.status = JSON.parse(window.localStorage['status']);
+      };
 
-    if(window.localStorage['status'])
-        $scope.status = JSON.parse(window.localStorage['status']);
-
-     
+      $scope.getStatus();
 })
    
 .controller('searchCtrl', function($scope, $state) {
@@ -122,8 +127,8 @@ angular.module('app.controllers', [])
           sourceType: Camera.PictureSourceType.CAMERA,
           allowEdit: true,
           encodingType: Camera.EncodingType.JPEG,
-          targetWidth: 200,
-          targetHeight: 200,
+          targetWidth: 300,
+          targetHeight: 300,
           popoverOptions: CameraPopoverOptions,
           saveToPhotoAlbum: false,
           correctOrientation:true
@@ -145,9 +150,9 @@ angular.module('app.controllers', [])
         $scope.pickPix = function(){
          var options = {
                maximumImagesCount: 1,
-               width: 800,
-               height: 800,
-               quality: 50
+               width: 300,
+               height: 300,
+               quality: 100
               };
 
           $cordovaImagePicker.getPictures(options)
@@ -155,9 +160,6 @@ angular.module('app.controllers', [])
                 var image = document.getElementById('myImage');
                 image.src = results;
                 newImage = results;
-                alert(results);
-                console.log('Image URI: ' + results);
-                    
                 }, function(error) {
                 // error getting photos
             });
