@@ -5,29 +5,30 @@
       </button>
     </ion-nav-buttons>
     <ion-content padding="'true'" class="has-header">
-        <div style="line-height: 250px; border: 1px solid rgb(238, 238, 238); border-radius: 3px; text-align: center; width: 100%; height: auto; background-color: rgb(255, 255, 255);">
+        <!--div style="line-height: 250px; border: 1px solid rgb(238, 238, 238); border-radius: 3px; text-align: center; width: 100%; height: auto; background-color: rgb(255, 255, 255);">
             <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
-        <img src="" id="myImage">
+        <img src="" id="myImage"-->
+        <img src="data:image/jpeg;base64,{{profileImage}}" id="myImage" width="100%">
         </div>
 
         <div class="card">
             <div class="item item-divider">
               {{name}}
             </div>
-           
+
             <div class="item item-icon-left">
               <i class="icon ion-email"></i>
               {{email}}
             </div>
-            
+
             <div class="item item-icon-left">
               <i class="icon ion-social-whatsapp-outline"></i>
               {{whatsApp}}
             </div>
-            
+
         </div>
 
-       
+
 
         <div class="list card" ng-repeat="x in UserPost">
 
