@@ -19,10 +19,14 @@ angular.module('app.controllers', [])
 .controller('signupCtrl', function($scope, $state) {
     $scope.signup = {};
     
+    var newImage;
+
     $scope.getSignUp = function() {
+        if(newImage) {
         var user = new Parse.User();
         user.set("username", $scope.signup.username);
         user.set("email", $scope.signup.email);
+        user.set("whatsApp", $scope.signup.whatsApp);
         user.set("password", $scope.signup.password);
         user.set("retype password", $scope.signup.retype);
 
@@ -37,6 +41,56 @@ angular.module('app.controllers', [])
             alert("Error: " + error.code + " " + error.message);
             }
         });
+    
+
+    //camera function
+     $scope.useCamera = function(){
+
+        var options = {
+          quality: 100,
+          destinationType: Camera.DestinationType.DATA_URL,
+          sourceType: Camera.PictureSourceType.CAMERA,
+          allowEdit: true,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 300,
+          targetHeight: 300,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: false,
+          correctOrientation:true
+        };
+
+        $cordovaCamera.getPicture(options).then(function(imageData) {
+          var image = document.getElementById('myImage');
+          image.src = "data:image/jpeg;base64," + imageData;
+          newImage = imageData;
+        }, function(err) {
+          // error
+        });
+
+     };
+        //image picker function
+
+        $scope.pickPix = function(){
+         var options = {
+               maximumImagesCount: 1,
+               width: 300,
+               height: 300,
+               quality: 100
+              };
+
+          $cordovaImagePicker.getPictures(options)
+            .then(function (results) {
+                var image = document.getElementById('myImage');
+                image.src = results;
+                newImage = results;
+                }, function(error) {
+                // error getting photos
+            });
+        };
+    } else {
+        alert("you must upload a photo");
+    }
+     
     }
 })
    
@@ -75,7 +129,7 @@ angular.module('app.controllers', [])
             $scope.status = JSON.parse(window.localStorage['status']);
       };
 
-//       $scope.getStatus();
+      $scope.getStatus();
 })
    
 .controller('searchCtrl', function($scope, $state) {
@@ -144,7 +198,8 @@ angular.module('app.controllers', [])
                 success: function(messaege) {
                 alert('Post successfully!');
                 $scope.status = {};
-                newImage = {};
+                var image = document.getElementById('myImage');
+                image.src = "";
                 },
              error: function(message, error) {
                 alert('Failed to post!'+ error.message);
@@ -208,9 +263,11 @@ angular.module('app.controllers', [])
 
 .controller('profileCtrl', function($scope, $state,$ionicPopover) {
     
-    //get username
+    //get username, email & WhatsApp
     var user = Parse.User.current();
     $scope.name = user.get("username");
+    $scope.email = user.get("email");
+    $scope.whatsApp = user.get("whatsApp");
 
     //popover-menu function
     $ionicPopover.fromTemplateUrl('popover.html', {

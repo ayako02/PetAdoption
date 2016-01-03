@@ -1,14 +1,18 @@
 <ion-view title="Signup">
     <ion-content padding="'true'" scroll="false" class="has-header">
        <form class="list list-insert" ng-submit="getSignUp()" name="SignUpForm">
-
+            
             <label class="item item-input">
                 <input type="text" placeholder="Username (eg: letters123)" ng-model="signup.username" 
                 required ng-minlength="5" ng-maxlength="10">
             </label>
             <ion-list>
                 <label class="item item-input">
-                    <input type="email" placeholder="EMAIL" ng-model="signup.email" required>
+                    <input type="email" placeholder="Email" ng-model="signup.email" required>
+                </label>
+                <label class="item item-input">
+                    <input type="tel" placeholder="WhatsApp (eg: +60 12-XXX 0101)" 
+                    ng-model="signup.whatsApp" required>
                 </label>
                 <label class="item item-input">
                     <input type="password" placeholder="PASSWORD" ng-model="signup.password" 
@@ -21,7 +25,16 @@
             </label>
             <div ng-show="SignUpForm.ConfirmField.$error.match" 
                class="button button-block button-assertive button-clear">Password does not match</div>
-            <button class="button button-calm button-block">Sign up</button>
         </form>
+
+       
+            <h5>Choose your profile picture:</h5>
+
+            <div class="button-bar">
+                <a class="button button-outline button-royal ion-camera" ng-click="useCamera()"></a>
+                <a class="button button-outline button-royal ion-images" ng-click="pickPix()"></a>
+            </div>
+            <img src="" id="myImage">
+        <button class="button button-calm button-block">Sign up</button>
     </ion-content>
 </ion-view>
