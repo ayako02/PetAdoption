@@ -137,17 +137,18 @@ angular.module('app.controllers', [])
     value: "",
   };
   $scope.doSearch = function() {
+    $scope.searchResult = null;
     console.log("Search: " + $scope.search.value);
+    var searchResult = [];
     var NewStatus = Parse.Object.extend("NewStatus");
     var query = new Parse.Query(NewStatus);
     query.descending("createdAt");
     query.equalTo("PetName", $scope.search.value);
-
     query.find({
       success: function(results) {
         for (var i = 0; i < results.length; i++) {
           object = results[i];
-          $scope.status[i] = {
+          searchResult[i] = {
             PetName: object.get('PetName'),
             age: object.get('Age'),
             breed: object.get('Breed'),
@@ -156,10 +157,10 @@ angular.module('app.controllers', [])
             state: object.get('State'),
             image: "data:image/jpeg;base64," + object.get('Image'),
           };
-          console.log(object.get('Gender'));
         }
-        console.log($scope.status);
-        window.localStorage['status'] = JSON.stringify($scope.status);
+        console.log(searchResult);
+        $scope.searchResult = searchResult;
+        $state.reload();
         // stop the ion refresher
         $scope.$broadcast('scroll.refreshComplete');
       },
@@ -167,9 +168,6 @@ angular.module('app.controllers', [])
         alert("Error: " + error.code + " " + error.message);
       }
     });
-
-    if (window.localStorage['status'])
-      $scope.status = JSON.parse(window.localStorage['status']);
   };
 
 })
